@@ -12,10 +12,13 @@
 	@$@/bin/pip --no-cache install -r requirements.txt
 	
 PYINC := $(shell python3-config --includes)
-PY11INC := $(shell python3 -m pybind11 --includes)
-EXT_SUFFIX := $(shell python3-config --extension-suffix)
 
-.PHONY: build_example
+.PHONY: build
+build: ## builds the c++ example extension
+	g++ -shared -fPIC ${PYINC} sim4life.cpp -o sim4life.so
+	## export LD_LIBRARY_PATH=${PWD}
+
+.PHONY: build-example
 build-example: ## builds the c++ example extension
 	cd example && g++ -shared -fPIC ${PYINC} example.cpp -o example.so
 	## export LD_LIBRARY_PATH=${PWD}/example
