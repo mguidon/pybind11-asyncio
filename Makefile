@@ -1,8 +1,6 @@
 .DEFAULT_GOAL := help
 
-
-.venv:
-	# creating virtual environment
+.venv: ## creating virtual environment
 	@python3 -m venv $@
 	# updating package managers
 	@$@/bin/pip --no-cache install --upgrade \
