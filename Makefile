@@ -10,15 +10,16 @@
 	@$@/bin/pip --no-cache install -r requirements.txt
 	
 PYINC := $(shell python3-config --includes)
+VENV_INC := ${CURDIR}/.venv/include/site/python3.6
 
 .PHONY: build
 build: ## builds the c++ example extension
-	g++ -shared -fPIC ${PYINC} sim4life.cpp -o sim4life.so
+	g++ -shared -fPIC -I${VENV_INC} ${PYINC} sim4life.cpp -o sim4life.so
 	## export LD_LIBRARY_PATH=${PWD}
 
 .PHONY: build-example
 build-example: ## builds the c++ example extension
-	cd example && g++ -shared -fPIC ${PYINC} example.cpp -o example.so
+	cd example && g++ -shared -fPIC -I${VENV_INC} example.cpp -o example.so
 	## export LD_LIBRARY_PATH=${PWD}/example
 
 # MISC ---------------------------------------------------------------
